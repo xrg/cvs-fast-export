@@ -1,6 +1,6 @@
 		cvs-fast-export project news
 
-Repository head:
+1.30: 2015-04-02
     Tagged branchlets are created for any CVS tag not matching a gitspace commit.
     Many portability fixes for *BSD.
 
