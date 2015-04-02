@@ -12,7 +12,9 @@ Description: Export an RCS or CVS history as a fast-import stream.
  commit DAG in the DOT format handled by the graphviz suite.  The package
  also includes cvssync, a tool for mirroring masters from remote CVS hosts.
 
-XBS-Gitorious-URL: https://gitorious.org/cvs-fast-export/
+XBS-Repository-URL: http://thyrsus.com/gitweb/?p=cvs-fast-export.git
+
+XBS-Clone-From: git@thyrsus.com:cvs-fast-export
 
 XBS-OpenHub-URL: https://www.ohloh.net/p/cvs-fast-export
 
