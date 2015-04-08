@@ -171,3 +171,6 @@ dist: distclean cvs-fast-export-$(VERSION).tar.gz
 
 release: cvs-fast-export-$(VERSION).tar.gz html
 	shipper version=$(VERSION) | sh -e -x
+
+refresh: html
+	shipper -N -w version=$(VERSION) | sh -e -x

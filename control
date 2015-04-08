@@ -12,15 +12,13 @@ Description: Export an RCS or CVS history as a fast-import stream.
  commit DAG in the DOT format handled by the graphviz suite.  The package
  also includes cvssync, a tool for mirroring masters from remote CVS hosts.
 
-XBS-Repository-URL: http://thyrsus.com/gitweb/?p=cvs-fast-export.git
-
-XBS-Clone-From: git@thyrsus.com:cvs-fast-export
-
-XBS-OpenHub-URL: https://www.ohloh.net/p/cvs-fast-export
-
 Homepage: http://www.catb.org/~esr/cvs-fast-export
 
 XBS-HTML-Target: index.html
+
+XBS-Repository-URL: http://thyrsus.com/gitweb/?p=cvs-fast-export.git
+
+XBS-OpenHub-URL: https://www.ohloh.net/p/cvs-fast-export
 
 XBS-VC-Tag-Template: %(version)s
 
