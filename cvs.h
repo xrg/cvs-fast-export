@@ -419,7 +419,7 @@ typedef struct _cvs_author {
  * OS X lacks __alloc_size__,
  */
 #if defined(__GNUC__) \
-    && (__GNUC__ > 2) || (__GNUC__ == 2 && __GNUC_MINOR__ >= 7) \
+    && ((__GNUC__ > 2) || (__GNUC__ == 2 && __GNUC_MINOR__ >= 7)) \
     && !defined(__APPLE__)
 #define _printflike(fmtarg, firstvararg)       \
             __attribute__((__format__(__printf__, fmtarg, firstvararg)))
@@ -437,6 +437,7 @@ typedef struct _cvs_author {
 #else
 #define _printflike(fmtarg, firstvararg)       /* nothing */
 #define _alloclike(sizearg)                    /* nothing */
+#define _alloclike2(sizearg1, sizearg2)        /* nothing */
 #define _malloclike                            /* nothing */
 #define _noreturn                              /* nothing */
 #define _pure                                  /* nothing */
