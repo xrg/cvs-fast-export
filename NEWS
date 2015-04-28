@@ -1,7 +1,10 @@
 		cvs-fast-export project news
 
+Repository head:
+    Improve OSX portability. 
+
 1.30: 2015-04-02
-    Tagged branchlets are created for any CVS tag not matching a gitspace commit.
+    Tagged branchlets created for CVS tags not matching a gitspace commits.
     Many portability fixes for *BSD.
 
 1.29: 2014-12-17
