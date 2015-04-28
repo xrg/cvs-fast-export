@@ -21,7 +21,7 @@
 #include "gram.h"
 #include "lex.h"
 
-extern int yyerror(yyscan_t, cvs_file *, char *);
+extern void yyerror(yyscan_t, cvs_file *, const char *);
 
 extern YY_DECL;	/* FIXME: once the Bison bug requiring this is fixed */
 %}
@@ -290,7 +290,7 @@ strings		: IGNORED strings
 		;
 %%
 
-int yyerror(yyscan_t scanner, cvs_file *cvs, char *msg)
+void yyerror(yyscan_t scanner, cvs_file *cvs, const char *msg)
 {
     fatal_error("parse error %s at %s\n", msg, yyget_text(scanner));
 }
