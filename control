@@ -16,11 +16,7 @@ Homepage: http://www.catb.org/~esr/cvs-fast-export
 
 XBS-HTML-Target: index.html
 
-XBS-Repository-URL: http://thyrsus.com/gitweb/?p=cvs-fast-export.git
-
-XBS-Developer-Clone: git@thyrsus.com:cvs-fast-export
-
-XBS-Anonymous-Clone: git://thyrsus.com/repositories/cvs-fast-export.
+XBS-Repository-URL: https://gitlab.com/esr/cvs-fast-export
 
 XBS-OpenHub-URL: https://www.ohloh.net/p/cvs-fast-export
 
