@@ -162,7 +162,7 @@ distclean: clean
 	cd tests; $(MAKE) --quiet clean
 
 SOURCES = Makefile *.[ch] *.[yl] cvssync cvsconvert cvsreduce
-DOCS = README COPYING NEWS AUTHORS TODO control *.asc
+DOCS = README COPYING NEWS AUTHORS TODO control *.asc cfe-logo.png
 ALL =  $(SOURCES) $(DOCS) tests
 cvs-fast-export-$(VERSION).tar.gz: $(ALL)
 	tar --transform='s:^:cvs-fast-export-$(VERSION)/:' --show-transformed-names -cvzf cvs-fast-export-$(VERSION).tar.gz $(ALL)

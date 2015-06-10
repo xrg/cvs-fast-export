@@ -18,6 +18,8 @@ XBS-HTML-Target: index.html
 
 XBS-Repository-URL: https://gitlab.com/esr/cvs-fast-export
 
+XBS-Logo: cfe-logo.png
+
 XBS-OpenHub-URL: https://www.ohloh.net/p/cvs-fast-export
 
 XBS-VC-Tag-Template: %(version)s

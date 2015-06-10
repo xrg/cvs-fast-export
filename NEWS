@@ -1,7 +1,8 @@
 		cvs-fast-export project news
 
 Repository head:
-    Emit a souerce type declaration reposurgeon can use.
+    Emit a source type declaration reposurgeon can use.
+    Project now has a logo.
 
 1.31: 2015-04-28
     Improve OSX portability. 
