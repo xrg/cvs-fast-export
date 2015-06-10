@@ -6,7 +6,7 @@
 # You will see some meaningless failures with git 1.7.1 and older.
 # For documentation, you will need asciidoc, xsltproc and docbook stylesheets.
 
-VERSION=1.31
+VERSION=1.32
 
 .PATH: $(.PARSEDIR)
 prefix?=/usr/local

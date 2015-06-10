@@ -1,6 +1,6 @@
 		cvs-fast-export project news
 
-Repository head:
+1.32: 2015-06-10
     Emit a source type declaration reposurgeon can use.
     Project now has a logo.
 
