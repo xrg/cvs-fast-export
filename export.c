@@ -761,6 +761,8 @@ void export_commits(forest_t *forest,
 	progress_begin(msgbuf, export_stats.export_total_commits);
     }
 
+    if (opts->reposurgeon)
+	fputs("#reposurgeon sourcetype cvs\n", stdout);
     if (opts->reportmode == fast) {
 	/*
 	 * Dump by branch order, not by commit date.  Slightly faster
