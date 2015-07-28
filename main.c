@@ -236,6 +236,7 @@ main(int argc, char **argv)
             { "fast",               0, 0, 'F' },
             { "embed-id",           0, 0, 'E' },
 	    { "sizes",              0, 0, 'S' },	/* undocumented */
+	    { NULL,                 0, 0, '\0'}, 
 	};
 	int c = getopt_long(argc, argv, "+hVw:l:grvqaA:R:Tk:e:s:pPi:t:CFSE", options, NULL);
 	if (c < 0)
