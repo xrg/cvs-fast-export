@@ -343,7 +343,7 @@ class ConvertComparison:
                 if self.showdiffs:
                     sys.stderr.write(preamble + "common: %d\n" %
                                      len([f for f in gitfiles if f in cvsfiles]))
-                    gitspace_only = {f for f in gitfiles if not f in cvsfiles}
+                    gitspace_only = set([f for f in gitfiles if not f in cvsfiles])
                     if gitspace_only:
                         sys.stderr.write(preamble + "gitspace only: %s\n" %
                                          gitspace_only)
