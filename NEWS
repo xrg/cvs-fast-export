@@ -1,6 +1,6 @@
 		cvs-fast-export project news
 
-Reopository head:
+1.33: 2015-08-30
     Deal with a really annoying build-portability glitch around -lrt.
     Fix cvsconvert to be Python 2.6-compatible.
 
