@@ -1,5 +1,9 @@
 		cvs-fast-export project news
 
+Reopository head:
+    Deal with a really annoying build-portability glitch around -lrt.
+    Fix cvsconvert to be Python 2.6-compatible.
+
 1.32: 2015-06-10
     Emit a source type declaration reposurgeon can use.
     Project now has a logo.

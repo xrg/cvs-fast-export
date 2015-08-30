@@ -2,7 +2,15 @@
 #
 # Build requirements: A C compiler, bison 3.x.x, flex, and asciidoc.
 # The C compiler must support anonymous unions (GNU, clang, C11).
+#
+# If you get a link error complaining that clock_gettime() can't be
+# found, uncomment the line that includes -lrt in the link flags.
+# You'll need this if your glibc version is < 2.17; that is for RHEL 6
+# or older and Debian Wheezy or older.  Alas, we can't unconditionally
+# include -lrt because Darwin.
+#
 # The test suite requires Python 2.6, RCS, and CVS installed.
+#
 # You will see some meaningless failures with git 1.7.1 and older.
 # For documentation, you will need asciidoc, xsltproc and docbook stylesheets.
 
@@ -23,7 +31,7 @@ GCC_WARNINGS3=-Wno-unused-function -Wno-unused-label -Wno-format-zero-length
 GCC_WARNINGS=$(GCC_WARNINGS1) $(GCC_WARNINGS2) $(GCC_WARNINGS3)
 CFLAGS=$(GCC_WARNINGS)
 CPPFLAGS += -I. -I$(srcdir)
-LIBS=-lrt
+#LIBS=-lrt
 CPPFLAGS += -DVERSION=\"$(VERSION)\"
 
 # Enable this for multithreading.
