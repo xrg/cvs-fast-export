@@ -347,7 +347,7 @@ class ConvertComparison:
                     if gitspace_only:
                         sys.stderr.write(preamble + "gitspace only: %s\n" %
                                          gitspace_only)
-                    cvs_only = {f for f in cvsfiles if not f in gitfiles}
+                    cvs_only = set([f for f in cvsfiles if not f in gitfiles])
                     if cvs_only:
                         sys.stderr.write(preamble + "CVS only: %s\n" %
                                          cvs_only)
