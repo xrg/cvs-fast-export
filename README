@@ -38,5 +38,10 @@ You will need RCS and CVS installed to run the tests, but they're
 not required for production use of cvs-fast-export.  Installed CVS
 is required to use the cvsconvert wrapper script.
 
+A "make check" can fail in obscure ways if you don't have all the required
+tools installed; you'll need CVS and Python.  If you get complaints indicating
+that *.repo files don't exist, install these tools and try again.  A "make
+clean" in the tests directory might be required to clear out debris.
+
 See also the NEWS and TODO files.  There is an (incomplete) tour of
 the internals in hacking.asc.
