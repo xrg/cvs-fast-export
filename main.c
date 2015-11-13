@@ -255,7 +255,7 @@ main(int argc, char **argv)
 		   " -A --authormap                  Author map file\n"
 		   " -R --revision-map               Revision map file\n"
 		   " -r --reposurgeon                Issue cvs-revision properties\n"
-		   " -T                              Force deteministic dates\n"
+		   " -T                              Force deterministic dates\n"
                    " -e --remote                     Relocate branches to refs/remotes/REMOTE\n"
                    " -s --strip                      Strip the given prefix instead of longest common prefix\n"
 		   " -p --progress                   Enable load-status reporting\n"
