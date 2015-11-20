@@ -1,5 +1,8 @@
 		cvs-fast-export project news
 
+Repository head:
+    Properly handle CVS masters with nonempty access lists.
+
 1.34: 2015-09-25
     Another Python compatibility fix.
     Fix inconsistent license header in revdir.c.

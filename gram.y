@@ -67,6 +67,7 @@ extern YY_DECL;	/* FIXME: once the Bison bug requiring this is fixed */
 %token		DESC LOG TEXT STRICT AUTHOR STATE
 %token		SEMI COLON IGNORED
 %token		BRAINDAMAGED_NUMBER
+%token		LOGIN
 %token <atom>	TOKEN
 %token <s>	DATA
 %token <text>	TEXT_DATA
@@ -74,6 +75,7 @@ extern YY_DECL;	/* FIXME: once the Bison bug requiring this is fixed */
 
 %type <text>	text
 %type <s>	log
+%type <symbol>	accesslist logins
 %type <symbol>	symbollist symbol symbols
 %type <version>	revision
 %type <vlist>	revisions
@@ -110,7 +112,7 @@ header		: HEAD opt_number SEMI
 		  { cvsfile->head = atom_cvs_number($2); }
 		| BRANCH NUMBER SEMI
 		  { cvsfile->branch = atom_cvs_number($2); }
-		| ACCESS SEMI
+		| accesslist
 		| symbollist
 		  { cvsfile->symbols = $1; }
 		| LOCKS locks SEMI lock_type
@@ -126,6 +128,28 @@ lock		: TOKEN COLON NUMBER
 		;
 lock_type	: STRICT SEMI
 		|
+		;
+accesslist	: ACCESS logins SEMI
+		  {
+		    /********************************************************************
+		     *	From OPTIONS in rcs(1) man page
+		     *
+		     *   -alogins
+		     *	     Append  the login names appearing in the comma-separated list logins
+		     *	     to the access list of the RCS file.
+		     *
+		     * The logins in the access list seems to be ignored by all RCS operations.
+		     * Nevertheless it is appropriate to allow an access list with logins.
+		     * Some RCS files have them.  Without this patch you get a syntax error
+		     * if you have logins in the access list.	JW 20151120
+		     *******************************************************************/
+		    $$ = $2;
+		  }
+		;
+logins		: logins LOGIN
+		  { $$ = NULL;		/* ignore LOGIN */ }
+		|
+		  { $$ = NULL;		/* empty access list */ }
 		;
 symbollist	: SYMBOLS symbols SEMI
 		  { $$ = $2; }

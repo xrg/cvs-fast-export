@@ -58,11 +58,11 @@ YY_DECL;
 %option noyyget_out noyyset_out noyyget_lval noyyset_lval
 %option noyyget_lloc noyyset_lloc noyyget_debug noyyset_debug
 
-%s CONTENT SKIP COMMIT PERM REVISION FNAME SKIPTOSEMI AUTHORSS
+%s CONTENT SKIP COMMIT PERM REVISION FNAME SKIPTOSEMI ACCESSS AUTHORSS
 %%
 <INITIAL>head			BEGIN(CONTENT); return HEAD;
 <INITIAL>branch			BEGIN(CONTENT); return BRANCH;
-<INITIAL>access			BEGIN(CONTENT); return ACCESS;
+<INITIAL>access			BEGIN(ACCESSS); return ACCESS;
 <INITIAL>symbols		BEGIN(CONTENT); return SYMBOLS;
 <INITIAL>locks			BEGIN(CONTENT); return LOCKS;
 <INITIAL>comment		BEGIN(CONTENT); return COMMENT;
@@ -94,6 +94,9 @@ YY_DECL;
 					fast_export_sanitize(yyscanner, cvs);
 					yylval->atom = atom(yytext);
 					return TOKEN;
+				}
+<ACCESSS>[a-zA-Z_][a-zA-Z_0-9]* {
+					return LOGIN;
 				}
 <AUTHORSS>[-a-zA-Z_0-9+%][-a-zA-Z_0-9+/%=.~^\\*?]* {
 					fast_export_sanitize(yyscanner, cvs);
