@@ -815,7 +815,7 @@ cvs_master_digest(cvs_file *cvs, cvs_master *cm, rev_master *master)
     else
 	warn("warning - no master branch generated\n");
 #ifdef CVSDEBUG
-w    /*
+    /*
      * Search for other branches
      */
     if (cvs->verbose > 0)
