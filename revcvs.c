@@ -7,8 +7,8 @@
 /*
  * Build one in-core linked list corresponding to a single CVS
  * master.  Just one entry point, cvs_master_digest(), which takes the
- * structure built by the grammar parse of the master as its single
- * argument.
+ * structure built by the grammar parse of the master as one of its
+ * arguments.
  */
 #include "cvs.h"
 #include "hash.h"
@@ -753,7 +753,7 @@ cvs_master_sort_heads(cvs_master *cm, cvs_file *cvs)
 #endif /* CVSDEBUG */
 }
 
-void
+cvs_commit *
 cvs_master_digest(cvs_file *cvs, cvs_master *cm, rev_master *master)
 /* fill out a linked list capturing the CVS master file structure */
 {
@@ -800,8 +800,10 @@ cvs_master_digest(cvs_file *cvs, cvs_master *cm, rev_master *master)
 		     cvs->gen.master_name);
 #endif /* CVSDEBUG */
     }
-    else
+    else {
 	warn("warning - no master branch generated\n");
+	return NULL;		/* cannot proceed with this master file */
+    }
 #ifdef CVSDEBUG
     /*
      * Search for other branches
@@ -849,6 +851,7 @@ cvs_master_digest(cvs_file *cvs, cvs_master *cm, rev_master *master)
 #endif /* CVSDEBUG */
 
     //rev_list_validate(cm);
+    return trunk;		/* to allow testing for an error in calling function */
 }
 
 // end

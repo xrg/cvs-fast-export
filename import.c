@@ -146,10 +146,13 @@ rev_list_file(rev_file *file, analysis_t *out, cvs_master *cm, rev_master *rm)
     yylex_destroy(scanner);
 
     fclose(in);
-    cvs_master_digest(cvs, cm, rm);
-    out->total_revisions = cvs->nversions;
-    out->skew_vulnerable = cvs->skew_vulnerable;
-    out->generator = cvs->gen;
+    if (cvs_master_digest(cvs, cm, rm) == NULL) {
+	warn("warning - master file %s has no revision number - ignore file\n", file->name);
+    } else {
+	out->total_revisions = cvs->nversions;
+	out->skew_vulnerable = cvs->skew_vulnerable;
+	out->generator = cvs->gen;
+    }
     cvs_file_free(cvs);
 }
 

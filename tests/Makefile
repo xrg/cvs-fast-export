@@ -65,7 +65,7 @@ m_rebuild:
 m_regress:
 	@echo "== Master-parsing regressions =="
 	@-for file in $(MASTERS); do \
-	    echo -n "  $${file}: "; sed <$${file},v -n -e '/^comment	@# \(.*\)@;/s//\1/p'; \
+	    echo -n "  $${file}: "; sed <$${file},v -n -e '/^comment[	 ]*@# \(.*\)@;/s//\1/p'; \
 	    $(CVS_FAST_EXPORT) $${file},v 2>&1 | $(DIFF) $${file}.chk -; \
 	done
 

@@ -1,0 +1,11 @@
+head     ;
+access   ;
+symbols  ;
+locks    ; strict;
+comment  @# Pathological master without trunk from glide3x repository.@;
+
+
+desc
+@@
+
+

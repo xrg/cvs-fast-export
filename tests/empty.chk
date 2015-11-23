@@ -1,0 +1,2 @@
+cvs-fast-export: warning - no master branch generated
+cvs-fast-export: warning - master file empty,v has no revision number - ignore file

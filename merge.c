@@ -805,16 +805,17 @@ merge_branches(rev_ref **branches, int nbranch,
 		    dump_number_file(LOGFILE,
 				     REVISIONS(present)->master->name,
 				     REVISIONS(present)->number);
-		warn("\n");
+		fprintf(LOGFILE, "\n");
 		/*
 		 * The file part of the error message could be spurious for
 		 * a multi-file commit, alas.  It wasn't any better back when
 		 * both flavors of commit had dedicated 'file' members; the
 		 * problem is that we can't actually know which CVS file
 		 * commit is the right one for purposes of this message.
+		 * (uniform warn messages jw 20151122)
 		 */
-		fprintf(LOGFILE, "\tbranch(%3d): %s  ",
-			n, cvstime2rfc3339(prev->date));
+		warn("\tbranch(%3d): %s  ", n,
+		    cvstime2rfc3339(prev->date));
 		revdir_iter *ri = revdir_iter_alloc(&prev->revdir);
 		first = revdir_iter_next(ri);
 		free(ri);
