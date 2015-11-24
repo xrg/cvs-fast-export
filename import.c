@@ -148,11 +148,12 @@ rev_list_file(rev_file *file, analysis_t *out, cvs_master *cm, rev_master *rm)
     fclose(in);
     if (cvs_master_digest(cvs, cm, rm) == NULL) {
 	warn("warning - master file %s has no revision number - ignore file\n", file->name);
+	cvs->gen.master_name = NULL;	/* blank out data of previous file */
     } else {
 	out->total_revisions = cvs->nversions;
 	out->skew_vulnerable = cvs->skew_vulnerable;
-	out->generator = cvs->gen;
     }
+    out->generator = cvs->gen;
     cvs_file_free(cvs);
 }
 
@@ -204,11 +205,12 @@ static void *worker(void *arg)
 	if (threads > 1)
 	    pthread_mutex_lock(&revlist_mutex);
 #endif /* THREADS */
-	generators[i] = out.generator;
-	progress_jump(++load_current_file);
-	total_revisions += out.total_revisions;
-	if (out.skew_vulnerable > skew_vulnerable)
-	    skew_vulnerable = out.skew_vulnerable;
+	if ((generators[i] = out.generator).master_name != NULL) {
+	    progress_jump(++load_current_file);
+	    total_revisions += out.total_revisions;
+	    if (out.skew_vulnerable > skew_vulnerable)
+		skew_vulnerable = out.skew_vulnerable;
+	}
 #ifdef THREADS
 	if (threads > 1)
 	    pthread_mutex_unlock(&revlist_mutex);
