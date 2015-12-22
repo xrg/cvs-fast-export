@@ -1,5 +1,8 @@
 		cvs-fast-export project news
 
+Repository head:
+    Avoid a core dump in another pathological case.
+
 1.35: 2015-11-23
     Properly handle CVS masters with nonempty access lists.
     Bail out gracefully on pathological masters with no revisions.
