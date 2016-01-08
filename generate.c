@@ -421,7 +421,7 @@ static int parse_next_delta_command(editbuffer_t *eb, struct diffcmd *dc)
 	;
 
     if (!nlines || (cmd != 'a' && cmd != 'd') || line1+nlines < line1)
-	fatal_error("Corrupt delta");
+	fatal_error("Corrupt delta in %s", eb->Gfilename);
 
     if (cmd == 'a') {
 	if (line1 < dc->adprev)
