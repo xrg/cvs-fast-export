@@ -1,5 +1,8 @@
 		cvs-fast-export project news
 
+Repository head:
+    Port patch for Sun systems.
+
 1.36: 2015-12-22
     Avoid a core dump in another pathological case.
 

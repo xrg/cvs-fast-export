@@ -304,7 +304,7 @@ lex_date(const cvs_number* const n, yyscan_t yyscanner, cvs_file *cvs)
     tm.tm_min = n->n[4];
     tm.tm_sec = n->n[5];
     tm.tm_isdst = 0;
-#ifndef __CYGWIN__
+#if !defined(__CYGWIN__) && !defined(__sun)
     tm.tm_zone = 0;
 #endif
     d = mktime(&tm);
