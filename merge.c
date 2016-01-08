@@ -201,14 +201,17 @@ static bool
 cvs_commit_match(const cvs_commit *a, const cvs_commit *b)
 /* are two CVS commits eligible to be coalesced into a changeset? */
 {
-    /*
-     * Versions of GNU CVS after 1.12 (2004) place a commitid in
-     * each commit to track patch sets. Use it if present
-     */
-    if (a->commitid && b->commitid)
-	return a->commitid == b->commitid;
-    if (a->commitid || b->commitid)
-	return false;
+    if (trust_commitids)
+    {
+	/*
+	 * Versions of GNU CVS after 1.12 (2004) place a commitid in
+	 * each commit to track patch sets. Use it if present
+	 */
+	if (a->commitid && b->commitid)
+	    return a->commitid == b->commitid;
+	if (a->commitid || b->commitid)
+	    return false;
+    }
     if (!cvs_commit_time_close(a->date, b->date))
 	return false;
     if (a->log != b->log)

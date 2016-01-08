@@ -1,6 +1,7 @@
 		cvs-fast-export project news
 
 Repository head:
+    New -c option for when you can't trust commit-IDs.
     Port patch for Sun systems.
 
 1.36: 2015-12-22

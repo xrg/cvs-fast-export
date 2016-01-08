@@ -724,6 +724,7 @@ extern unsigned int natoms;
 
 extern bool nowarn;
 extern int commit_time_window;
+extern bool trust_commitids;
 extern FILE *LOGFILE;
 
 extern bool progress;

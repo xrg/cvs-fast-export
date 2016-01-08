@@ -17,6 +17,7 @@
 
 /* options */
 int commit_time_window = 300;
+bool trust_commitids = true;
 bool progress = false;
 FILE *LOGFILE;
 #ifdef THREADS
@@ -207,6 +208,7 @@ main(int argc, char **argv)
 	    { "verbose",	    0, 0, 'v' },
 	    { "quiet",		    0, 0, 'q' },
 	    { "commit-time-window", 1, 0, 'w' },
+	    { "content-only",	    1, 0, 'c' },
 	    { "log",                1, 0, 'l' },
 	    { "authormap",          1, 0, 'A' },
 	    { "authorlist",         1, 0, 'a' },
@@ -226,7 +228,7 @@ main(int argc, char **argv)
 	    { "sizes",              0, 0, 'S' },	/* undocumented */
 	    { NULL,                 0, 0, '\0'}, 
 	};
-	int c = getopt_long(argc, argv, "+hVw:l:grvqaA:R:Tk:e:s:pPi:t:CFSE", options, NULL);
+	int c = getopt_long(argc, argv, "+hVw:cl:grvqaA:R:Tk:e:s:pPi:t:CFSE", options, NULL);
 	if (c < 0)
 	    break;
 	switch(c) {
@@ -239,6 +241,7 @@ main(int argc, char **argv)
 		   " -k --expand                     Enable keyword expansion\n"
                    " -V --version                    Print version\n"
                    " -w --commit-time-window=WINDOW  Time window for commits(seconds)\n"
+		   " -c --content-only               Don't trust commit-IDs\n"
 		   " -a --authorlist                 Report committer IDs from repository\n"
 		   " -A --authormap                  Author map file\n"
 		   " -R --revision-map               Revision map file\n"
@@ -281,6 +284,9 @@ main(int argc, char **argv)
 	case 'w':
 	    assert(optarg);
 	    commit_time_window = atoi(optarg);
+	    break;
+	case 'c':
+	    trust_commitids = false;
 	    break;
 	case 'l':
 	    assert(optarg);
