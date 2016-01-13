@@ -115,7 +115,7 @@ static const uchar *in_buffer_loc(const editbuffer_t *const eb)
 
 static void in_buffer_init(editbuffer_t *eb, 
 			   const uchar * const text, 
-			   const int bypass_initial)
+			   const bool bypass_initial)
 {
     Ginbuf(eb)->ptr = Ginbuf(eb)->buffer = (uchar *)text;
     Ginbuf(eb)->read_count=0;
@@ -860,7 +860,7 @@ static void process_delta(editbuffer_t *eb,
     uchar *ptr;
 
     eb->Glog = node->patch->log;
-    in_buffer_init(eb, Gnode_text(eb), 1);
+    in_buffer_init(eb, Gnode_text(eb), true);
     eb->Gversion = node->version;
     cvs_number_string(eb->Gversion->number, eb->Gversion_number, sizeof(eb->Gversion_number));
 
@@ -902,22 +902,22 @@ static void expandedit(editbuffer_t *eb)
     editline_t *p, *lim, *l = Gline(eb);
 
     for (p=l, lim=l+Ggap(eb);  p<lim;  ) {
-	in_buffer_init(eb, (*p++).ptr, 0);
+	in_buffer_init(eb, (*p++).ptr, false);
 	expandline(eb);
     }
     for (p+=Ggapsize(eb), lim=l+Glinemax(eb);  p<lim;  ) {
-	in_buffer_init(eb, (*p++).ptr, 0);
+	in_buffer_init(eb, (*p++).ptr, false);
 	expandline(eb);
     }
 #else
     uchar **p, **lim, **l = Gline(eb);
 
     for (p=l, lim=l+Ggap(eb);  p<lim;  ) {
-	in_buffer_init(eb, *p++, 0);
+	in_buffer_init(eb, *p++, false);
 	expandline(eb);
     }
     for (p+=Ggapsize(eb), lim=l+Glinemax(eb);  p<lim;  ) {
-	in_buffer_init(eb, *p++, 0);
+	in_buffer_init(eb, *p++, false);
 	expandline(eb);
     }
 #endif
