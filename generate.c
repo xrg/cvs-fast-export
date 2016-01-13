@@ -400,14 +400,17 @@ static long parsenum(editbuffer_t *eb)
     return ret;
 }
 
-static int parse_next_delta_command(editbuffer_t *eb, struct diffcmd *dc)
+enum edit_op {eof, append, delete};
+
+static enum edit_op parse_next_delta_command(editbuffer_t *eb,
+					     struct diffcmd *dc)
 {
     int cmd;
     long line1, nlines;
 
     cmd = in_buffer_getc(eb);
     if (cmd==EOF)
-	return -1;
+	return eof;
 
     line1 = parsenum(eb);
 
@@ -436,7 +439,7 @@ static int parse_next_delta_command(editbuffer_t *eb, struct diffcmd *dc)
 
     dc->line1 = line1;
     dc->nlines = nlines;
-    return cmd == 'a';
+    return cmd == 'a' ? append : delete;
 }
 
 static void escape_string(editbuffer_t *eb, register char const *s)
@@ -836,7 +839,7 @@ static void process_delta(editbuffer_t *eb,
 			  const enum stringwork func)
 {
     long editline = 0, linecnt = 0, adjust = 0;
-    int editor_command;
+    enum edit_op editor_command;
     struct diffcmd dc;
     uchar *ptr;
 
@@ -852,16 +855,23 @@ static void process_delta(editbuffer_t *eb,
 	/* coverity[fallthrough] */
     case EDIT:
 	dc.dafter = dc.adprev = 0;
-	while ((editor_command = parse_next_delta_command(eb, &dc)) >= 0) {
-	    if (editor_command) {
+	while ((editor_command = parse_next_delta_command(eb, &dc)) != eof) {
+	    switch (editor_command)
+	    {
+	    case append:
 		editline = dc.line1 + adjust;
 		linecnt = dc.nlines;
 		while (linecnt--)
 		    insertline(eb, editline++, in_get_line(eb));
 		adjust += dc.nlines;
-	    } else {
+		break;
+	    case delete:
 		deletelines(eb, dc.line1 - 1 + adjust, dc.nlines);
 		adjust -= dc.nlines;
+		break;
+	    case eof:
+		/* should never happen */
+		break;
 	    }
 	}
 	break;
