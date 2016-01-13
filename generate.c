@@ -400,7 +400,7 @@ static long parsenum(editbuffer_t *eb)
     return ret;
 }
 
-enum edit_op {eof, append, delete};
+enum edit_op {eof, append, delete, replace};
 
 static enum edit_op parse_next_delta_command(editbuffer_t *eb,
 					     struct diffcmd *dc)
@@ -412,6 +412,22 @@ static enum edit_op parse_next_delta_command(editbuffer_t *eb,
     if (cmd==EOF)
 	return eof;
 
+    /*
+     * 1.11 sometines issues replacement text without ops at the front. Example:
+     *
+     * 1.40414
+     * log
+     * @Updating build number tracker
+     * @
+     * text
+     * @#Build Number for ANT. Do not edit!
+     * #Wed Jan 13 07:35:14 CET 2016
+     * build.number=41316
+     * @
+     */
+    if (cmd != 'a' && cmd != 'd')
+	return replace;
+    
     line1 = parsenum(eb);
 
     while (in_buffer_getc(eb) == ' ')
@@ -423,7 +439,7 @@ static enum edit_op parse_next_delta_command(editbuffer_t *eb,
     while (in_buffer_getc(eb) != '\n')
 	;
 
-    if (!nlines || (cmd != 'a' && cmd != 'd') || line1+nlines < line1)
+    if (!nlines || line1+nlines < line1)
 	fatal_error("corrupt delta in %s", eb->Gfilename);
 
     if (cmd == 'a') {
@@ -869,6 +885,8 @@ static void process_delta(editbuffer_t *eb,
 		deletelines(eb, dc.line1 - 1 + adjust, dc.nlines);
 		adjust -= dc.nlines;
 		break;
+	    case replace:
+		fatal_error("edit operation not found in %s", eb->Gfilename);
 	    case eof:
 		/* should never happen */
 		break;
