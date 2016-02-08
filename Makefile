@@ -24,6 +24,7 @@ srcdir=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))$(parsedir)
 VPATH=$(srcdir)
 
 INSTALL = install
+TAR = tar
 
 GCC_WARNINGS1=-Wall -Wpointer-arith -Wstrict-prototypes
 GCC_WARNINGS2=-Wmissing-prototypes -Wmissing-declarations
@@ -173,7 +174,7 @@ SOURCES = Makefile *.[ch] *.[yl] cvssync cvsconvert cvsreduce
 DOCS = README COPYING NEWS AUTHORS TODO control *.asc cfe-logo.png
 ALL =  $(SOURCES) $(DOCS) tests
 cvs-fast-export-$(VERSION).tar.gz: $(ALL)
-	tar --transform='s:^:cvs-fast-export-$(VERSION)/:' --show-transformed-names -cvzf cvs-fast-export-$(VERSION).tar.gz $(ALL)
+	$(TAR) --transform='s:^:cvs-fast-export-$(VERSION)/:' --show-transformed-names -cvzf cvs-fast-export-$(VERSION).tar.gz $(ALL)
 
 dist: distclean cvs-fast-export-$(VERSION).tar.gz
 
