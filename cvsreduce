@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# Runs under both Python 2 and Python 3: preserve this property!
 """
 cvsreduce - skeletonize CVS master files
 
