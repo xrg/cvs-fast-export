@@ -29,12 +29,26 @@ imply the same changeset DAG as the unstripped originals, but be
 easier to pass around, faster to process, and not reveal potentially
 sensitive data.
 """
-import os, sys, getopt, hashlib
+import os, sys, getopt, hashlib, io
 
 strip_tags = True
 strip_logs = True
 strip_content = True
 verbose = 0
+
+binary_encoding = 'latin-1'	# Preserves 0x80..0xff
+
+def make_std_wrapper(stream):
+    "Standard input/output wrapper factory function for binary I/O"
+    if isinstance(stream, io.TextIOWrapper):
+        # newline="\n" ensures that Python 3 won't mangle line breaks
+        # line_buffering=True ensures that interactive command sessions work as expected
+        return io.TextIOWrapper(stream.buffer, encoding=binary_encoding, newline="\n", line_buffering=True)
+    return stream
+
+sys.stdin = make_std_wrapper(sys.stdin)
+sys.stdout = make_std_wrapper(sys.stdout)
+sys.stderr = make_std_wrapper(sys.stderr)
 
 def replace_escaped_text(inputf, replacement, outputf):
     "Replace text between @ delimiters with a specified string."
@@ -77,7 +91,7 @@ def hash_escaped_text(inputf, outputf):
         txt += nxt
     if nxt2 == '\n':
         m = hashlib.md5()
-        m.update(txt)
+        m.update(txt.encode(binary_encoding))
         outputf.write("@%s\n@\n" % m.hexdigest())
     else:
         sys.stderr.write("cvsreduce: fatal error, @ trailer not followed by newline (%s).\n" % nxt2)
@@ -169,8 +183,8 @@ if __name__ == '__main__':
             newname = os.path.join(*newpath)
             if verbose > 0:
                 print('%s -> %s' % (oldname, newname))
-            old = open(oldname, "r")
-            new = open(newname, "w")
+            old = open(oldname, "rb")
+            new = open(newname, "wb")
             skeletonize(old, new)
             old.close()
             new.close()
