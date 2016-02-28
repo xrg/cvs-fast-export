@@ -1,7 +1,7 @@
 		cvs-fast-export project news
 
 1.38: 2016-02-28
-    All Python code in the suite Python is 2 & 3 polyglot and 8-bit clean.
+    All Python code in the suite is 2 & 3 polyglot and 8-bit clean.
 
 1.37: 2016-01-29
     New -c option for when you can't trust commit-IDs.
