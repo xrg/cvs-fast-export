@@ -1,5 +1,8 @@
 		cvs-fast-export project news
 
+Repository head:
+    cvssync, cvsconvert, and tests/testlifter.py are Python 2 vs.3 agnostic.
+
 1.37: 2016-01-29
     New -c option for when you can't trust commit-IDs.
     Port patch for Sun systems.
