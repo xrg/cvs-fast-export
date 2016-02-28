@@ -144,5 +144,22 @@ c_regress:
 	@for ct in $(CT); do $(MAKE) --quiet $$ct; cvsconvert -q -n $$ct; done
 	@for cd in $(CD); do cvsconvert -q -n $$cd; done
 
+# This test machinery works, but we need example files with dates
+# that won't get clobbered after make clean.
+UNSTRIPPED = twobranch.repo/CVSROOT/config,v
+z_regress:
+	@echo "== Reductions =="
+	@for rtest in $(UNSTRIPPED); do \
+		base=`basename $${rtest}`; \
+		echo "  $${base}"; \
+		cvsreduce <$${rtest} | $(DIFF) reductions/$${base}.reduced -; \
+	done
+z_rebuild:
+	for rtest in $(UNSTRIPPED); do \
+		base=`basename $${rtest}`; \
+		echo "Remaking $${base}.reduced "; \
+		cvsreduce <$${rtest} >reductions/$${base}.reduced; \
+	done
+
 clean:
 	rm -fr neutralize.map *.checkout *.repo *.pyc *.dot *.git *.git.fi
