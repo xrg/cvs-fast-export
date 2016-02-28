@@ -13,6 +13,8 @@ Will produce spurious errors if any CVS branch name had to be sanitized.
 """
 Test framework for cvs-fast-export.
 """
+# This code runs correctly under both Python 2 and Python 3.
+# Preserve this property!
 import sys, os, shutil, subprocess, time, filecmp
 
 DEBUG_STEPS    = 1
@@ -139,8 +141,9 @@ class RCSRepository:
                 os.system("rm -fr %s" % " ".join(self.conversions))
 
 class CVSRepository(RCSRepository):
-    def __init__(self, name):
+    def __init__(self, name, readonly=False):
         RCSRepository.__init__(self, name)
+        self.readonly = readonly
         self.directory = os.path.join(os.getcwd(), self.name)
         self.checkouts = []
         self.conversions = []
@@ -150,9 +153,13 @@ class CVSRepository(RCSRepository):
             mute = '-Q'
         else:
             mute = ""
-        self.run_with_cleanup("CVSREADONLYFS=yes cvs %s -d:local:%s %s" % (mute,
-                                                            self.directory,
-                                                            " ".join(cmd)))
+        if self.readonly:
+            prefix = "CVSREADONLYFS=yes "
+        else:
+            prefix = ""
+        self.run_with_cleanup("%scvs %s -d:local:%s %s" % (prefix, mute,
+                                                           self.directory,
+                                                           " ".join(cmd)))
     def init(self):
         RCSRepository.init(self)
         self.do("init")
@@ -296,7 +303,8 @@ class ConvertComparison:
     SUFFIX = "-git"
     def __init__(self, stem, repo=None, checkout=None, module=None, options="", showdiffs=False):
         self.stem = stem
-        self.repo = CVSRepository(repo if repo else stem + ".testrepo")
+        self.repo = CVSRepository(repo if repo else stem + ".testrepo",
+                                  readonly=True)
         self.checkout = self.repo.checkout(module,
                                            checkout if checkout else stem + ".checkout")
         self.module = module or stem

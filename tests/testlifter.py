@@ -129,8 +129,9 @@ class RCSRepository:
                 os.system("rm -fr %s" % " ".join(self.conversions))
 
 class CVSRepository(RCSRepository):
-    def __init__(self, name):
+    def __init__(self, name, readonly=False):
         RCSRepository.__init__(self, name)
+        self.readonly = readonly
         self.directory = os.path.join(os.getcwd(), self.name)
         self.checkouts = []
         self.conversions = []
@@ -140,9 +141,13 @@ class CVSRepository(RCSRepository):
             mute = '-Q'
         else:
             mute = ""
-        self.run_with_cleanup("cvs %s -d:local:%s %s" % (mute,
-                                                            self.directory,
-                                                            " ".join(cmd)))
+        if self.readonly:
+            prefix = "CVSREADONLYFS=yes "
+        else:
+            prefix = ""
+        self.run_with_cleanup("%scvs %s -d:local:%s %s" % (prefix, mute,
+                                                           self.directory,
+                                                           " ".join(cmd)))
     def init(self):
         RCSRepository.init(self)
         self.do("init")
@@ -335,11 +340,11 @@ class ConvertComparison:
                 if self.showdiffs:
                     sys.stderr.write(preamble + "common: %d\n" %
                                      len([f for f in gitfiles if f in cvsfiles]))
-                    gitspace_only = {f for f in gitfiles if not f in cvsfiles}
+                    gitspace_only = set([f for f in gitfiles if not f in cvsfiles])
                     if gitspace_only:
                         sys.stderr.write(preamble + "gitspace only: %s\n" %
                                          gitspace_only)
-                    cvs_only = {f for f in cvsfiles if not f in gitfiles}
+                    cvs_only = set([f for f in cvsfiles if not f in gitfiles])
                     if cvs_only:
                         sys.stderr.write(preamble + "CVS only: %s\n" %
                                          cvs_only)
