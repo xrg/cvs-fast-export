@@ -2,7 +2,7 @@
 blob
 mark :1
 data 43
-The quick brown fox jumped @t the lazy dog.
+The quick brown fox jumped @t the lazy dög.
 commit refs/heads/master
 mark :2
 committer foo <foo> 101200 +0000

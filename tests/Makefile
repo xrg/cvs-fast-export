@@ -51,7 +51,7 @@ s_rebuild: neutralize.map
 s_regress: neutralize.map
 	@echo "== Dump regressions =="
 	@-for file in $(TESTLOADS); do \
-	    echo -n "  $${file} "; grep '##' $${file}.tst  || echo ' ## (no description)'; \
+	    echo -n "  $${file} "; grep -a '##' $${file}.tst  || echo ' ## (no description)'; \
 	    $(MAKE) --quiet $${file}.repo; \
 	    find $${file}.repo/module -name '*,v' | $(CVS_FAST_EXPORT) $(TESTOPTS) 2>&1 | $(DIFF) $${file}.chk -; \
 	done
@@ -80,7 +80,7 @@ i_rebuild: neutralize.map
 i_regress: neutralize.map
 	@echo "== Incremental-dump regressions =="
 	@-for file in $(INCREMENTAL); do \
-	    echo -n "  $${file} "; grep '##' $${file}.tst  || echo ' ## (no description)'; \
+	    echo -n "  $${file} "; grep -a '##' $${file}.tst  || echo ' ## (no description)'; \
 	    $(MAKE) --quiet $${file}.repo; \
 	    find $${file}.repo/module -name '*,v' | $(CVS_FAST_EXPORT) -T -i $(THRESHOLD) -A neutralize.map 2>&1 | $(DIFF) $${file}.inc-chk -; \
 	done
@@ -93,7 +93,7 @@ LINEAR = basic expand hack1 hack2 hack3 longrev twotag
 f_regress: neutralize.map
 	@echo "== Fast format compatibility =="
 	@-for file in $(LINEAR); do \
-	    echo -n "  $${file} "; grep '##' $${file}.tst  || echo ' ## (no description)'; \
+	    echo -n "  $${file} "; grep -a '##' $${file}.tst  || echo ' ## (no description)'; \
 	    $(MAKE) --quiet $${file}.repo; \
 	    find $${file}.repo/module -name '*,v' | $(CVS_FAST_EXPORT) -C -T -A neutralize.map 2>&1 | ./gitwash >canonical$$; \
 	    find $${file}.repo/module -name '*,v' | $(CVS_FAST_EXPORT) -F -T -A neutralize.map 2>&1 | ./gitwash >fast$$; \
@@ -110,7 +110,7 @@ r_rebuild: neutralize.map
 r_regress: neutralize.map
 	@echo "== Repo regressions =="
 	@-for repo in $(REDUCED); do \
-	    echo -n "  $${repo} "; grep '##' $${repo}.testrepo/README  || echo ' ## (no description)'; \
+	    echo -n "  $${repo} "; grep -a '##' $${repo}.testrepo/README  || echo ' ## (no description)'; \
 	    find $${repo}.testrepo/module -name '*,v' | $(CVS_FAST_EXPORT) $(TESTOPTS) 2>&1 | $(DIFF) $${repo}.chk -; \
 	done
 
@@ -119,7 +119,7 @@ PATHSTRIP = sed -e '/\/.*tests/s//tests/'
 t_regress:
 	@echo "== Pathological cases =="
 	@for pytest in $(PYTESTS); do \
-		echo -n "  $${pytest} "; grep '##' $${pytest}.py  || echo ' ## (no description)'; \
+		echo -n "  $${pytest} "; grep -a '##' $${pytest}.py  || echo ' ## (no description)'; \
 		python $${pytest}.py 2>&1 | $(PATHSTRIP) | $(DIFF) $${pytest}.err -; \
 	done
 t_rebuild:
