@@ -144,7 +144,7 @@ c_regress:
 	@for ct in $(CT); do $(MAKE) --quiet $$ct; cvsconvert -q -n $$ct; done
 	@for cd in $(CD); do cvsconvert -q -n $$cd; done
 
-UNSTRIPPED = $(shell ls t9601.testrepo/module/*)
+UNSTRIPPED = $(shell ls t9601.testrepo/module/* at.repo/module/*)
 z_regress:
 	@echo "== Reductions =="
 	@for rtest in $(UNSTRIPPED); do \
