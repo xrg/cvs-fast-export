@@ -1,6 +1,8 @@
 """
 Test framework for cvs-fast-export.
 """
+# This code runs correctly under both Python 2 and Python 3.
+# Preserve this property!
 import sys, os, shutil, subprocess, time, filecmp
 
 DEBUG_STEPS    = 1
@@ -11,6 +13,8 @@ DEBUG_LIFTER   = 4
 verbose = 0
 
 os.putenv("PATH", os.getenv("PATH") + os.pathsep + "..") 
+
+binary_encoding = 'Latin-1'	# Preserves high bits in data
 
 def noisy_run(dcmd, legend=""):
     "Either execute a command or raise a fatal exception."
@@ -40,7 +44,7 @@ def capture_or_die(dcmd, legend=""):
     if verbose >= DEBUG_COMMANDS:
         sys.stdout.write("%s: executing '%s'%s\n" % (caller, dcmd, legend))
     try:
-        return subprocess.Popen(dcmd, shell=True, stdout=subprocess.PIPE).communicate()[0]
+        return subprocess.Popen(dcmd, shell=True, stdout=subprocess.PIPE).communicate()[0].decode(binary_encoding)
     except subprocess.CalledProcessError as e:
         if e.returncode < 0:
             sys.stderr.write("%s: child was terminated by signal %d." % (caller, -e.returncode))
@@ -187,7 +191,7 @@ class CVSCheckout:
     def do(self, cmd, *args):
         "Execute a command in the checkout directory."
         with directory_context(self.directory):
-            apply(self.repo.do, [cmd] + list(args))
+            self.repo.do(*([cmd] + list(args)))
     def outdo(self, cmd):
         "Execute a command in the checkout directory."
         with directory_context(self.directory):
