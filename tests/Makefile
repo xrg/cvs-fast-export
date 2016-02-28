@@ -29,10 +29,10 @@ check: test
 ,v.dot:
 	$(CVS_FAST_EXPORT) -g $< >$*.dot
 
-test: s_regress m_regress r_regress i_regress f_regress t_regress c_regress
+test: s_regress m_regress r_regress i_regress f_regress t_regress c_regress z_regress
 	@echo "No diff output is good news."
 
-rebuild: s_rebuild m_rebuild r_rebuild i_rebuild t_rebuild
+rebuild: s_rebuild m_rebuild r_rebuild i_rebuild t_rebuild z_rebuild
 
 testlist:
 	@grep '^##' *.tst *.py
@@ -144,9 +144,7 @@ c_regress:
 	@for ct in $(CT); do $(MAKE) --quiet $$ct; cvsconvert -q -n $$ct; done
 	@for cd in $(CD); do cvsconvert -q -n $$cd; done
 
-# This test machinery works, but we need example files with dates
-# that won't get clobbered after make clean.
-UNSTRIPPED = twobranch.repo/CVSROOT/config,v
+UNSTRIPPED = $(shell ls t9601.testrepo/module/*)
 z_regress:
 	@echo "== Reductions =="
 	@for rtest in $(UNSTRIPPED); do \
@@ -155,7 +153,7 @@ z_regress:
 		cvsreduce <$${rtest} | $(DIFF) reductions/$${base}.reduced -; \
 	done
 z_rebuild:
-	for rtest in $(UNSTRIPPED); do \
+	@for rtest in $(UNSTRIPPED); do \
 		base=`basename $${rtest}`; \
 		echo "Remaking $${base}.reduced "; \
 		cvsreduce <$${rtest} >reductions/$${base}.reduced; \

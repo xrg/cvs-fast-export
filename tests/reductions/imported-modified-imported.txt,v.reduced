@@ -1,0 +1,76 @@
+head	1.2;
+access;
+symbols
+	;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2004.02.09.15.43.14;	author kfogel;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2004.02.09.15.43.13;	author kfogel;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2004.02.09.15.43.13;	author kfogel;	state Exp;
+branches;
+next	1.1.1.2;
+
+1.1.1.2
+date	2004.02.09.15.43.13;	author kfogel;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@16f3c1098e0826682b7f1a3fb15556d5
+@
+text
+@<stdin> content for 1.2
+@
+
+
+1.1
+log
+@da28248b4ec75efbe0ba7461142ed60d
+@
+text
+@d1 1
+a1 1
+<stdin> content for 1.1
+@
+
+
+1.1.1.1
+log
+@a3f07f3e74236feadb1edcf7e35336a5
+@
+text
+@d1 1
+a1 1
+<stdin> content for 1.1.1.1
+@
+
+
+1.1.1.2
+log
+@3b9f4875822d4aa686f28a2c64a87c44
+@
+text
+@d1 1
+a1 1
+<stdin> content for 1.1.1.2
+@
+
+

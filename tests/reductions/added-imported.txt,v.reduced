@@ -1,0 +1,43 @@
+head	1.1;
+access;
+symbols
+	;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2004.02.09.15.43.15;	author kfogel;	state Exp;
+branches
+	1.1.1.1;
+next	;
+
+1.1.1.1
+date	2004.02.09.15.43.16;	author kfogel;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@d43e95c16042cc42992295d93f81a158
+@
+text
+@<stdin> content for 1.1
+@
+
+
+1.1.1.1
+log
+@c627c21b5607bb54f19725115c8f0f65
+@
+text
+@d1 1
+a1 1
+<stdin> content for 1.1.1.1
+@
+
