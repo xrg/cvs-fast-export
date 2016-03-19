@@ -87,6 +87,8 @@ OBJS=gram.o lex.o rbtree.o main.o import.o dump.o cvsnumber.o \
 	cvsutil.o revdir.o revlist.o atom.o revcvs.o generate.o export.o \
 	nodehash.o tags.o authormap.o graph.o utils.o merge.o hash.o
 
+all: cvs-fast-export man html
+
 cvs-fast-export: $(OBJS)
 	$(CC) $(CFLAGS) $(TARGET_ARCH) $(OBJS) $(LDFLAGS) $(LIBS) -o $@
 
@@ -111,7 +113,7 @@ lex.o: lex.c gram.h
 
 # Requires asciidoc and xsltproc/docbook stylesheets.
 .asc.1:
-	a2x --doctype manpage --format manpage -D . $<
+	a2x --doctype manpage --format manpage $<
 .asc.html:
 	a2x --doctype manpage --format xhtml -D . $<
 	rm -f docbook-xsl.css
@@ -121,7 +123,7 @@ reporting-bugs.html: reporting-bugs.asc
 
 man: cvs-fast-export.1 cvssync.1 cvsconvert.1
 
-html: cvs-fast-export.html cvssync.html cvsconvert.html
+html: cvs-fast-export.html cvssync.html cvsconvert.html reporting-bugs.html
 
 clean:
 	rm -f $(OBJS) gram.h gram.c lex.h lex.c cvs-fast-export
