@@ -1,5 +1,8 @@
 		cvs-fast-export project news
 
+Repository head:
+    Fix GitLab issue #8: Exporting with commitids does not coalesce changesets.
+
 1.38: 2016-02-28
     All Python code in the suite is 2 & 3 polyglot and 8-bit clean.
 

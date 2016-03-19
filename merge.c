@@ -674,12 +674,17 @@ merge_branches(rev_ref **branches, int nbranch,
 	    if (c->tailed)
 		break;
 
-	    if (c != latest && can_match && !cvs_commit_time_close(latest->date, c->date)) {
+	    if (c != latest && can_match && !(cvs_commit_time_close(latest->date, c->date) || cvs_commitid_match(latest, c))) {
 		/*
 		 * Because we are in date order, once we hit something too
                  * far off, we can't get anything else in the clique -
                  * unless there are cases where things with the same commitid
                  * have wildly differing dates.
+		 *
+		 * But: the point of the cvs_commitid_match() call
+		 * above is to let us keep accumulating when we see a
+		 * matching commit id even if the commit is outside
+		 * the time window.
                  */
 		can_match = false;
 		/* how much of the array might now be unsorted */
