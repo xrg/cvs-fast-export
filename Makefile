@@ -144,6 +144,11 @@ install-man: man
 	$(INSTALL) -m 644 cvs-fast-export.1 "$(target)/share/man/man1"
 	$(INSTALL) -m 644 cvssync.1 "$(target)/share/man/man1"
 	$(INSTALL) -m 644 cvsconvert.1 "$(target)/share/man/man1"
+uninstall: uninstall-man uninstall-bin
+uninstall-man:
+	cd $(target)/share/man/man1/ && rm -f cvs-fast-export.1 cvssync.1 cvsconvert.1
+uninstall-bin:
+	cd $(target)/bin && rm -f cvs-fast-export cvssync cvsconvert
 
 PROFILE_REPO = ~/software/groff-conversion/groff-mirror/groff
 gmon.out: cvs-fast-export
