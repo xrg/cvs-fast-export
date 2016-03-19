@@ -517,9 +517,11 @@ merge_branches(rev_ref **branches, int nbranch,
      * We want to keep the revisions array in the same order as branches
      * was passed to us (modulo removing items) if not the fast output
      * phase suffers badly.
+     *
      * However, for the purpose of computing cliques it is very useful to
      * have the array sorted by date (with special handling for null and
-     & tailed commits)
+     * tailed commits)
+     *
      * So, we will maintain a sort_buf which has indexes into the revisons
      * array but is sorted to help us find cliques. On any given iteration
      * sort_buf indexes point to the following types of commit
