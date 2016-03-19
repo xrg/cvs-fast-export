@@ -197,9 +197,10 @@ cvs_commit_time_close(const cvstime_t a, const cvstime_t b)
     return false;
 }
 
-static bool
-cvs_commit_match(const cvs_commit *a, const cvs_commit *b)
-/* are two CVS commits eligible to be coalesced into a changeset? */
+typedef enum {no, yes, maybe} tribool;
+
+static tribool
+cvs_commitid_match(const cvs_commit *a, const cvs_commit *b)
 {
     if (trust_commitids)
     {
@@ -208,10 +209,29 @@ cvs_commit_match(const cvs_commit *a, const cvs_commit *b)
 	 * each commit to track patch sets. Use it if present
 	 */
 	if (a->commitid && b->commitid)
-	    return a->commitid == b->commitid;
+	    return (a->commitid == b->commitid ? yes : no);
 	if (a->commitid || b->commitid)
-	    return false;
+	    return no;
     }
+
+    return maybe;
+}
+
+static bool
+cvs_commit_match(const cvs_commit *a, const cvs_commit *b)
+/* are two CVS commits eligible to be coalesced into a changeset? */
+{
+    tribool idcheck = cvs_commitid_match(a, b);
+
+    switch (idcheck) {
+    case yes:
+	return true;
+    case no:
+	return false;
+    case maybe:
+	break;
+    }
+
     if (!cvs_commit_time_close(a->date, b->date))
 	return false;
     if (a->log != b->log)
