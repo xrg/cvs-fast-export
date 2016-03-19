@@ -200,8 +200,17 @@ revision	: NUMBER date author state branches next revtrailer
 		    $$->parent = atom_cvs_number($6);
 		    $$->commitid = $7;
 		    if ($$->commitid == NULL 
-			        && cvsfile->skew_vulnerable < $$->date)
+			        && cvsfile->skew_vulnerable < $$->date) {
 			cvsfile->skew_vulnerable = $$->date;
+			if (cvsfile->verbose) {
+			    char jw_buf[33];
+			    warn("skew_vulnerable in file %s rev %s set to %s\n",
+				 cvsfile->export_name,
+				 cvs_number_string($$->number,
+						   jw_buf, sizeof(jw_buf)-1),
+				 cvstime2rfc3339($$->date));
+			}
+		    }
 		    hash_version(&cvsfile->gen.nodehash, $$);
 		    ++cvsfile->nversions;			
 		  }
