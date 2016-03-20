@@ -208,10 +208,10 @@ main(int argc, char **argv)
 	    { "verbose",	    0, 0, 'v' },
 	    { "quiet",		    0, 0, 'q' },
 	    { "commit-time-window", 1, 0, 'w' },
-	    { "content-only",	    1, 0, 'c' },
+	    { "content-only",	    0, 0, 'c' },
 	    { "log",                1, 0, 'l' },
 	    { "authormap",          1, 0, 'A' },
-	    { "authorlist",         1, 0, 'a' },
+	    { "authorlist",         0, 0, 'a' },
 	    { "revision-map",       1, 0, 'R' },
 	    { "reposurgeon",        0, 0, 'r' },
             { "graph",              0, 0, 'g' },
@@ -221,14 +221,14 @@ main(int argc, char **argv)
             { "progress",           0, 0, 'p' },
             { "promiscuous",        0, 0, 'P' },
             { "incremental",        1, 0, 'i' },
-            { "threads",	    0, 0, 't' },
+            { "threads",	    1, 0, 't' },
             { "canonical",          0, 0, 'C' },
             { "fast",               0, 0, 'F' },
             { "embed-id",           0, 0, 'E' },
 	    { "sizes",              0, 0, 'S' },	/* undocumented */
 	    { NULL,                 0, 0, '\0'}, 
 	};
-	int c = getopt_long(argc, argv, "+hVw:cl:grvqaA:R:Tk:e:s:pPi:t:CFSE", options, NULL);
+	int c = getopt_long(argc, argv, "+hVw:cl:grvqaA:R:Tk::e:s:pPi:t:CFSE", options, NULL);
 	if (c < 0)
 	    break;
 	switch(c) {
@@ -238,23 +238,25 @@ main(int argc, char **argv)
                    "Mandatory arguments to long options are mandatory for short options too.\n"
                    " -h --help                       This help\n"
 		   " -g --graph                      Dump the commit graph\n"
-		   " -k --expand                     Enable keyword expansion\n"
+		   " -k --expand[=MODE]              Enable keyword expansion (default b (old-value, no EOL change))\n"
+		   "                                 valid MODEs are kv, kvl, k, v, o, b\n"
                    " -V --version                    Print version\n"
                    " -w --commit-time-window=WINDOW  Time window for commits(seconds)\n"
 		   " -c --content-only               Don't trust commit-IDs\n"
+		   " -l --log=LOG_FILE               Log file\n"
 		   " -a --authorlist                 Report committer IDs from repository\n"
-		   " -A --authormap                  Author map file\n"
-		   " -R --revision-map               Revision map file\n"
+		   " -A --authormap=AUTHOR_MAP       Author map file\n"
+		   " -R --revision-map=REV_MAP       Revision map file\n"
 		   " -r --reposurgeon                Issue cvs-revision properties\n"
 		   " -T                              Force deterministic dates\n"
-                   " -e --remote                     Relocate branches to refs/remotes/REMOTE\n"
-                   " -s --strip                      Strip the given prefix instead of longest common prefix\n"
+                   " -e --remote=REMOTE              Relocate branches to refs/remotes/REMOTE\n"
+                   " -s --strip=PREFIX               Strip the given PREFIX instead of longest common prefix\n"
 		   " -p --progress                   Enable load-status reporting\n"
 		   " -P --promiscuous                Process files without ,v extension\n"
 		   " -v --verbose                    Show verbose progress messages\n"
 		   " -q --quiet                      Suppress normal warnings\n"
-		   " -i --incremental TIME           Incremental dump beginning after specified RFC3339-format time.\n"
-		   " -t --threads N                  Use threaded scheduler for CVS master analyses.\n"
+		   " -i --incremental=TIME           Incremental dump beginning after specified RFC3339-format TIME.\n"
+		   " -t --threads=N                  Use threaded scheduler with N threads for CVS master analyses.\n"
 		   " -E --embed-id                   Embed CVS revisions in the commit messages.\n"
 		   "\n"
 		   "Example: find | cvs-fast-export\n");
