@@ -208,10 +208,10 @@ main(int argc, char **argv)
 	    { "verbose",	    0, 0, 'v' },
 	    { "quiet",		    0, 0, 'q' },
 	    { "commit-time-window", 1, 0, 'w' },
-	    { "content-only",	    0, 0, 'c' },
+	    { "content-only",	    1, 0, 'c' },
 	    { "log",                1, 0, 'l' },
 	    { "authormap",          1, 0, 'A' },
-	    { "authorlist",         0, 0, 'a' },
+	    { "authorlist",         1, 0, 'a' },
 	    { "revision-map",       1, 0, 'R' },
 	    { "reposurgeon",        0, 0, 'r' },
             { "graph",              0, 0, 'g' },
@@ -221,14 +221,14 @@ main(int argc, char **argv)
             { "progress",           0, 0, 'p' },
             { "promiscuous",        0, 0, 'P' },
             { "incremental",        1, 0, 'i' },
-            { "threads",	    1, 0, 't' },
+            { "threads",	    0, 0, 't' },
             { "canonical",          0, 0, 'C' },
             { "fast",               0, 0, 'F' },
             { "embed-id",           0, 0, 'E' },
 	    { "sizes",              0, 0, 'S' },	/* undocumented */
 	    { NULL,                 0, 0, '\0'}, 
 	};
-	int c = getopt_long(argc, argv, "+hVw:cl:grvqaA:R:Tk::e:s:pPi:t:CFSE", options, NULL);
+	int c = getopt_long(argc, argv, "+hVw:cl:grvqaA:R:Tk:e:s:pPi:t:CFSE", options, NULL);
 	if (c < 0)
 	    break;
 	switch(c) {
