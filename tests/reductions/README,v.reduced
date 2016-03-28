@@ -1,0 +1,25 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2016.02.28.19.42.53;	author esr;	state Exp;
+branches;
+next	;
+commitid	10056D34DBD13DD1D34;
+
+
+desc
+@@
+
+
+1.1
+log
+@bc63a471429fbb9f3f5044808c3f5269
+@
+text
+@<stdin> content for 1.1
+@
