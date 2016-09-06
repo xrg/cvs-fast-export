@@ -333,7 +333,7 @@ static void fast_export_sanitize(yyscan_t yyscanner, cvs_file *cvs)
 {
     char *sp, *tp;
 
-#define SUFFIX(a, s)	(strcmp(a + strlen(a) - strlen(s), s) == 0) 
+#define SUFFIX(a, s)	((strlen(a) >= strlen(s)) && strcmp(a + strlen(a) - strlen(s), s) == 0) 
 #define BADCHARS	"~^\\*?"
     for (sp = tp = yyget_text(yyscanner); *sp; sp++) {
 	if (isgraph((unsigned char)*sp) && strchr(BADCHARS, *sp) == NULL) {
