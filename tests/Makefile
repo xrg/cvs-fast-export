@@ -89,7 +89,7 @@ i_regress: neutralize.map
 # wacky nondeterminism in the git tools.  Thus we can only test
 # repeatably on linear ones.  There's also some wacky non-idempotency
 # in how git handles timezones.
-LINEAR = basic expand hack1 hack2 hack3 longrev twotag
+LINEAR = basic expand hack1 hack2 hack3 linear longrev twotag
 f_regress: neutralize.map
 	@echo "== Fast format compatibility =="
 	@-for file in $(LINEAR); do \

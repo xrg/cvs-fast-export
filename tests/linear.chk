@@ -1,0 +1,65 @@
+#reposurgeon sourcetype cvs
+blob
+mark :1
+data 46
+The quick brown fox jumped over the lazy dog.
+
+commit refs/heads/master
+mark :2
+committer foo <foo> 101200 +0000
+data 24
+This is a sample commit
+
+M 100644 :1 README
+M 100644 inline .gitignore
+data 198
+# CVS default ignores begin
+tags
+TAGS
+.make.state
+.nse_depinfo
+*~
+#*
+.#*
+,*
+_$*
+*$
+*.old
+*.bak
+*.BAK
+*.orig
+*.rej
+.del-*
+*.a
+*.olb
+*.o
+*.obj
+*.so
+*.exe
+*.Z
+*.elc
+*.ln
+core
+# CVS default ignores end
+
+property cvs-revision 11 README 1.1
+
+blob
+mark :3
+data 44
+And now for something completely different.
+
+commit refs/heads/master
+mark :4
+committer foo <foo> 102400 +0000
+data 31
+This is a second sample commit
+
+from :2
+M 100644 :3 README
+property cvs-revision 11 README 1.2
+
+reset refs/heads/master
+from :4
+
+done
