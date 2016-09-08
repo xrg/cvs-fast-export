@@ -1,7 +1,7 @@
 		cvs-fast-export project news
 
-Repository head:
-    Add warnings about stack CVS vs. the MirOS patched version.
+1.40: 2016-09-07
+    Add warnings about stock CVS vs. the MirOS patched version.
 
 1.39: 2016-09-06
     Fix GitLab issue #8: Exporting with commitids does not coalesce changesets.
