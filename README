@@ -36,12 +36,16 @@ A more detailed guide to effective bug reporting is at reporting-bugs.asc.
 This code has a regression-test suite; invoke it with "make check".
 You will need RCS and CVS installed to run the tests, but they're
 not required for production use of cvs-fast-export.  Installed CVS
-is required to use the cvsconvert wrapper script.
+is also required to use the cvsconvert wrapper script.
 
 A "make check" can fail in obscure ways if you don't have all the required
 tools installed; you'll need CVS and Python.  If you get complaints indicating
 that *.repo files don't exist, install these tools and try again.  A "make
 clean" in the tests directory might be required to clear out debris.
+
+Warning: The regression tests will fail spuriously if your CVS lacks the
+MirOS patches.  These are carried by Debian Linux and derivatives; you can
+check by Looking for "MirDebian" in the output of cvs --version.
 
 See also the NEWS and TODO files.  There is an (incomplete) tour of
 the internals in hacking.asc.

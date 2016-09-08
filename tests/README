@@ -2,6 +2,10 @@
 
 You will need RCS and CVS installed to run these tests.
 
+Warning: The regression tests will fail spuriously if your CVS lacks the
+MirOS patches.  These are carried by Debian Linux and derivatives; you can
+check by Looking for "MirDebian" in the output of cvs --version.
+
 Ensure there is no CVSROOT folder in any parent directory.
 
 There are mutiple groups of tests in this directory.
