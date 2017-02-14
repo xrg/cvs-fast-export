@@ -1,5 +1,8 @@
 		cvs-fast-export project news
 
+1.41: 2017-02-14
+    Savannah changed how you need to interpret pseudo-URLs.
+
 1.40: 2016-09-07
     Add warnings about stock CVS vs. the MirOS patched version.
 
