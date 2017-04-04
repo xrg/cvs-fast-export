@@ -10,7 +10,6 @@ License:    GPLv2
 Group:      Development/Other
 BuildRequires:  asciidoc
 BuildRequires:  flex
-BuildRequires:  bison >= 3
 
 
 %description

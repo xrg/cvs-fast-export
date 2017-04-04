@@ -1,5 +1,4 @@
 *.o
-gram.[ch]
 lex.[ch]
 cvs-fast-export
 test
